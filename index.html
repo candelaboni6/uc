@@ -262,14 +262,14 @@
 
   .flip-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
     gap: 1.5rem;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 auto 4rem;
   }
 
   .flip-card {
-    height: 320px;
+    height: 340px;
     perspective: 1200px;
     cursor: pointer;
   }
@@ -278,7 +278,7 @@
     position: relative;
     width: 100%;
     height: 100%;
-    transition: transform 0.65s cubic-bezier(.4,0,.2,1);
+    transition: transform 0.7s cubic-bezier(.4,0,.2,1);
     transform-style: preserve-3d;
   }
 
@@ -287,111 +287,296 @@
     transform: rotateY(180deg);
   }
 
-  .flip-front, .flip-back {
+  /* ── FLIP CARDS ── */
+  .flip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto 4rem;
+  }
+
+  .flip-card {
+    height: 340px;
+    perspective: 1200px;
+    cursor: pointer;
+  }
+
+  .flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s cubic-bezier(.4,0,.2,1);
+    transform-style: preserve-3d;
+  }
+
+  .flip-card:hover .flip-inner,
+  .flip-card.flipped .flip-inner {
+    transform: rotateY(180deg);
+  }
+
+  /* Ambas caras: posición absoluta dentro del inner */
+  .flip-face {
     position: absolute;
     inset: 0;
     border-radius: 14px;
+    overflow: hidden;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    overflow: hidden;
   }
 
-  .flip-front {
+  /* La cara trasera empieza dada vuelta */
+  .flip-face.back {
+    transform: rotateY(180deg);
+  }
+
+  /* Layer interno: maneja bg + overlay + contenido */
+  .face-layer {
+    position: relative;
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: space-between;
+    padding: 1rem 1.2rem;
   }
 
-  .flip-front::before {
+  /* Overlay oscuro encima del bg */
+  .face-layer::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
+    pointer-events: none;
   }
 
-  .flip-front-content {
+  .flip-face.front .face-layer::after {
+    background: linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.1) 55%, transparent 100%);
+  }
+
+  .flip-face.back .face-layer::after {
+    background: linear-gradient(to top, rgba(8,52,44,0.92) 0%, rgba(8,52,44,0.2) 55%, transparent 100%);
+  }
+
+  /* Tag pill arriba */
+  .face-tag {
     position: relative;
-    z-index: 1;
-    padding: 1.5rem;
-    text-align: left;
+    z-index: 2;
+    align-self: flex-start;
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.28rem 0.75rem;
+    border-radius: 50px;
   }
 
-  .flip-cat-icon {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-    display: block;
+  .flip-face.front .face-tag {
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.22);
+    color: rgba(255,255,255,0.85);
+    backdrop-filter: blur(4px);
   }
 
-  .flip-cat-name {
+  .flip-face.back .face-tag {
+    background: var(--verde);
+    color: var(--blanco);
+  }
+
+  /* Texto abajo */
+  .face-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .face-name {
     font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
+    font-size: 1.22rem;
     font-weight: 700;
     color: var(--blanco);
     line-height: 1.2;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.3rem;
   }
 
-  .flip-hint {
-    font-size: 0.7rem;
+  .face-hint {
+    font-size: 0.62rem;
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255,255,255,0.5);
+  }
+  .face-hint::after { content: ' ↻'; }
+
+  .face-platos {
+    font-size: 0.76rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.55;
+    font-style: italic;
   }
 
-  .flip-back {
-    background: var(--verde);
-    transform: rotateY(180deg);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 1.8rem;
-    text-align: left;
+  /* ACORDEÓN DE PRODUCTOS */
+  .productos-acordeon {
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
-  .flip-back-title {
+  .acordeon-titulo {
     font-family: 'Playfair Display', serif;
-    font-size: 1.15rem;
+    font-size: 1.6rem;
     font-weight: 700;
-    color: var(--blanco);
-    margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(255,255,255,0.25);
+    color: var(--negro);
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .acordeon-titulo em { font-style: italic; color: var(--verde); }
+  .acordeon-subtitulo {
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--gris-medio);
+    margin-bottom: 2.5rem;
   }
 
-  .flip-back ul {
+  .acordeon-item {
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  .acordeon-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 0.5rem;
+    cursor: pointer;
+    user-select: none;
+    transition: color .2s;
+    gap: 1rem;
+  }
+  .acordeon-header:hover { color: var(--verde); }
+
+  .acordeon-header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .acordeon-icon {
+    font-size: 1.4rem;
+    width: 40px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .acordeon-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--negro);
+    transition: color .2s;
+  }
+  .acordeon-header:hover .acordeon-name { color: var(--verde); }
+
+  .acordeon-count {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--gris-medio);
+    background: var(--gris);
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+  }
+
+  .acordeon-arrow {
+    font-size: 1.1rem;
+    color: var(--verde);
+    transition: transform .3s ease;
+    flex-shrink: 0;
+  }
+  .acordeon-item.open .acordeon-arrow { transform: rotate(180deg); }
+
+  .acordeon-body {
+    display: none;
+    padding: 0 0.5rem 1.75rem;
+  }
+  .acordeon-item.open .acordeon-body { display: block; }
+
+  .acordeon-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+
+  .acol-section-title {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--verde);
+    margin-bottom: 0.75rem;
+  }
+
+  .acol-list {
     list-style: none;
-    margin-bottom: 1rem;
   }
 
-  .flip-back ul li {
-    font-size: 0.82rem;
+  .acol-list li {
+    font-size: 0.88rem;
     font-weight: 400;
-    color: rgba(255,255,255,0.9);
-    padding: 0.25rem 0;
-    padding-left: 1rem;
+    color: #444;
+    padding: 0.3rem 0;
+    padding-left: 1.1rem;
     position: relative;
+    border-bottom: 1px solid #f0f0f0;
     line-height: 1.4;
   }
 
-  .flip-back ul li::before {
-    content: '→';
+  .acol-list li:last-child { border-bottom: none; }
+
+  .acol-list li::before {
+    content: '·';
     position: absolute;
     left: 0;
-    color: rgba(255,255,255,0.5);
-    font-size: 0.75rem;
+    color: var(--verde);
+    font-weight: 700;
+    font-size: 1.1rem;
+    line-height: 1.2;
   }
 
-  .flip-platos {
-    font-size: 0.72rem;
-    font-style: italic;
-    color: rgba(255,255,255,0.65);
-    line-height: 1.5;
-    border-top: 1px solid rgba(255,255,255,0.15);
-    padding-top: 0.75rem;
-    margin-top: auto;
+  .acol-platos {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--verde-light);
+    border-radius: 8px;
+    border-left: 3px solid var(--verde);
+  }
+
+  .acol-platos-title {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--verde);
+    margin-bottom: 0.5rem;
+  }
+
+  .acol-platos ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .acol-platos ul li {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--verde-dark);
+    background: rgba(26,158,143,0.12);
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+  }
+
+  @media (max-width: 640px) {
+    .acordeon-cols { grid-template-columns: 1fr; gap: 1.5rem; }
   }
 
   /* ─── BANNER VIDEO ─── */
@@ -682,34 +867,30 @@
 <section id="catalogo">
   <div class="section-label">Catálogo de productos</div>
   <h2 class="section-title">Combinaciones únicas,<br><em>listas para servir</em></h2>
-  <p class="section-desc">Seleccioná una categoría para conocer los productos. Todos cocidos, ultracongelados y listos para regenerar en el momento del servicio.</p>
+  <p class="section-desc">Pasá el cursor sobre cada tarjeta para ver el plato terminado. Hacé click en cada categoría para ver el detalle completo.</p>
 
   <div class="flip-grid">
 
     <!-- 1. Proteínas Cocidas -->
     <div class="flip-card">
       <div class="flip-inner">
-        <div class="flip-front" style="background-image: url('https://images.unsplash.com/photo-1546069901-d5bfd2cbfb1f?w=600&q=80')">
-          <div class="flip-front-content">
-            <span class="flip-cat-icon">🥩</span>
-            <div class="flip-cat-name">Proteínas Cocidas</div>
-            <div class="flip-hint">Ver cortes →</div>
+        <div class="flip-face front">
+          <div class="face-layer" style="background-image:url('https://images.unsplash.com/photo-1591348278863-a8fb3887e2aa?w=600&q=80')">
+            <span class="face-tag">Al vacío · Ultracongelado</span>
+            <div class="face-content">
+              <div class="face-name">Proteínas Cocidas</div>
+              <div class="face-hint">Ver plato terminado</div>
+            </div>
           </div>
         </div>
-        <div class="flip-back">
-          <div class="flip-back-title">Proteínas Cocidas</div>
-          <ul>
-            <li>Pechuga grillada / en juliana</li>
-            <li>Pata muslo asada</li>
-            <li>Bondiola braseada</li>
-            <li>Solomillo asado</li>
-            <li>Ribs ahumadas BBQ</li>
-            <li>Entrecot asado</li>
-            <li>Lomo grillado</li>
-            <li>Albóndigas en salsa</li>
-            <li>Salmón / trucha al limón</li>
-          </ul>
-          <div class="flip-platos">Platos: suprema a la mostaza · ternera demiglacé · cerdo BBQ</div>
+        <div class="flip-face back">
+          <div class="face-layer" style="background-image:url('https://images.unsplash.com/photo-1546069901-d5bfd2cbfb1f?w=600&q=80')">
+            <span class="face-tag">Listo para servir</span>
+            <div class="face-content">
+              <div class="face-name">Proteínas Cocidas</div>
+              <div class="face-platos">Lomo grillado · Suprema a la mostaza · Cerdo BBQ · Trucha al limón</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -717,51 +898,47 @@
     <!-- 2. Guarniciones -->
     <div class="flip-card">
       <div class="flip-inner">
-        <div class="flip-front" style="background-image: url('https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=600&q=80')">
-          <div class="flip-front-content">
-            <span class="flip-cat-icon">🥔</span>
-            <div class="flip-cat-name">Guarniciones</div>
-            <div class="flip-hint">Ver variedades →</div>
+        <div class="flip-face front">
+          <div class="face-layer" style="background-image:url('https://images.unsplash.com/photo-1620374645498-af6bd681a0bd?w=600&q=80')">
+            <span class="face-tag">Al vacío · Ultracongelado</span>
+            <div class="face-content">
+              <div class="face-name">Guarniciones</div>
+              <div class="face-hint">Ver plato terminado</div>
+            </div>
           </div>
         </div>
-        <div class="flip-back">
-          <div class="flip-back-title">Guarniciones</div>
-          <ul>
-            <li>Puré de papas / calabaza / boniato</li>
-            <li>Papas al horno / a la crema</li>
-            <li>Milhojas de papas</li>
-            <li>Arroz blanco / risotto</li>
-            <li>Legumbres cocidas</li>
-            <li>Verduras grilladas</li>
-            <li>Verduras al vapor</li>
-          </ul>
-          <div class="flip-platos">Platos: milanesa con puré · cerdo demiglacé · bowls completos</div>
+        <div class="flip-face back">
+          <div class="face-layer" style="background-image:url('https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=600&q=80')">
+            <span class="face-tag">Listo para servir</span>
+            <div class="face-content">
+              <div class="face-name">Guarniciones</div>
+              <div class="face-platos">Puré de papas · Risotto · Papas milhojas · Arroz amarillo · Verduras grilladas</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- 3. Pastas -->
+    <!-- 3. Pastas & Salsas -->
     <div class="flip-card">
       <div class="flip-inner">
-        <div class="flip-front" style="background-image: url('https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?w=600&q=80')">
-          <div class="flip-front-content">
-            <span class="flip-cat-icon">🍝</span>
-            <div class="flip-cat-name">Pastas & Salsas</div>
-            <div class="flip-hint">Ver línea completa →</div>
+        <div class="flip-face front">
+          <div class="face-layer" style="background-image:url('https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=600&q=80')">
+            <span class="face-tag">Al vacío · Ultracongelado</span>
+            <div class="face-content">
+              <div class="face-name">Pastas & Salsas</div>
+              <div class="face-hint">Ver plato terminado</div>
+            </div>
           </div>
         </div>
-        <div class="flip-back">
-          <div class="flip-back-title">Pastas & Salsas</div>
-          <ul>
-            <li>Tallarines · fettuccine</li>
-            <li>Sorrentinos · ravioles · panzottis</li>
-            <li>Fileto · bolognesa · bechamel</li>
-            <li>Crema de verdeo</li>
-            <li>Demi-glace · de hongos</li>
-            <li>Cuatro quesos · pesto de nuez</li>
-            <li>Frutos de mar</li>
-          </ul>
-          <div class="flip-platos">Platos: ravioles al pesto · tallarines bolognesa · sorrentinos 4 quesos</div>
+        <div class="flip-face back">
+          <div class="face-layer" style="background-image:url('https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?w=600&q=80')">
+            <span class="face-tag">Listo para servir</span>
+            <div class="face-content">
+              <div class="face-name">Pastas & Salsas</div>
+              <div class="face-platos">Sorrentinos 4 quesos · Ravioles al pesto · Fettuccine bolognesa · Panzottis demi-glace</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -769,21 +946,23 @@
     <!-- 4. Platos Combinados -->
     <div class="flip-card">
       <div class="flip-inner">
-        <div class="flip-front" style="background-image: url('https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600&q=80')">
-          <div class="flip-front-content">
-            <span class="flip-cat-icon">🍽️</span>
-            <div class="flip-cat-name">Platos Combinados</div>
-            <div class="flip-hint">Ver preparaciones →</div>
+        <div class="flip-face front">
+          <div class="face-layer" style="background-image:url('https://images.unsplash.com/photo-1574484284002-952d92456975?w=600&q=80')">
+            <span class="face-tag">Al vacío · Ultracongelado</span>
+            <div class="face-content">
+              <div class="face-name">Platos Combinados</div>
+              <div class="face-hint">Ver plato terminado</div>
+            </div>
           </div>
         </div>
-        <div class="flip-back">
-          <div class="flip-back-title">Platos Combinados</div>
-          <ul>
-            <li>Pastel de papa</li>
-            <li>Lasagna</li>
-            <li>Canelones</li>
-          </ul>
-          <div class="flip-platos">Preparaciones completas, porciones listas para regenerar y servir directamente.</div>
+        <div class="flip-face back">
+          <div class="face-layer" style="background-image:url('https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600&q=80')">
+            <span class="face-tag">Listo para servir</span>
+            <div class="face-content">
+              <div class="face-name">Platos Combinados</div>
+              <div class="face-platos">Pastel de papa · Lasagna · Canelones · Porciones completas listas para servir</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -791,22 +970,23 @@
     <!-- 5. Sopas & Cremas -->
     <div class="flip-card">
       <div class="flip-inner">
-        <div class="flip-front" style="background-image: url('https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80')">
-          <div class="flip-front-content">
-            <span class="flip-cat-icon">🍲</span>
-            <div class="flip-cat-name">Sopas & Cremas</div>
-            <div class="flip-hint">Ver variedades →</div>
+        <div class="flip-face front">
+          <div class="face-layer" style="background-image:url('https://images.unsplash.com/photo-1604152135912-04a022e23696?w=600&q=80')">
+            <span class="face-tag">Al vacío · Ultracongelado</span>
+            <div class="face-content">
+              <div class="face-name">Sopas & Cremas</div>
+              <div class="face-hint">Ver plato terminado</div>
+            </div>
           </div>
         </div>
-        <div class="flip-back">
-          <div class="flip-back-title">Sopas & Cremas</div>
-          <ul>
-            <li>Crema de calabaza</li>
-            <li>Crema de choclo</li>
-            <li>Crema de arvejas</li>
-            <li>Sopa minestrone</li>
-          </ul>
-          <div class="flip-platos">Ideales para menús institucionales, servicio de temporada y propuestas de entrada.</div>
+        <div class="flip-face back">
+          <div class="face-layer" style="background-image:url('https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80')">
+            <span class="face-tag">Listo para servir</span>
+            <div class="face-content">
+              <div class="face-name">Sopas & Cremas</div>
+              <div class="face-platos">Crema de calabaza · Crema de choclo · Crema de arvejas · Sopa minestrone</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -814,22 +994,23 @@
     <!-- 6. Cazuelas & Estofados -->
     <div class="flip-card">
       <div class="flip-inner">
-        <div class="flip-front" style="background-image: url('https://images.unsplash.com/photo-1606851091851-e8c8d3e0f4a8?w=600&q=80')">
-          <div class="flip-front-content">
-            <span class="flip-cat-icon">🫕</span>
-            <div class="flip-cat-name">Cazuelas & Estofados</div>
-            <div class="flip-hint">Ver variedades →</div>
+        <div class="flip-face front">
+          <div class="face-layer" style="background-image:url('https://images.unsplash.com/photo-1583608564722-9aa7a2237dee?w=600&q=80')">
+            <span class="face-tag">Al vacío · Ultracongelado</span>
+            <div class="face-content">
+              <div class="face-name">Cazuelas & Estofados</div>
+              <div class="face-hint">Ver plato terminado</div>
+            </div>
           </div>
         </div>
-        <div class="flip-back">
-          <div class="flip-back-title">Cazuelas & Estofados</div>
-          <ul>
-            <li>Cazuela de lentejas</li>
-            <li>Arroz a la valenciana</li>
-            <li>Cazuela de vegetales</li>
-            <li>Humita</li>
-          </ul>
-          <div class="flip-platos">Sabor casero, producción industrial. Perfectos para menús rotativos y alta demanda.</div>
+        <div class="flip-face back">
+          <div class="face-layer" style="background-image:url('https://images.unsplash.com/photo-1574484284002-952d92456975?w=600&q=80')">
+            <span class="face-tag">Listo para servir</span>
+            <div class="face-content">
+              <div class="face-name">Cazuelas & Estofados</div>
+              <div class="face-platos">Cazuela de lentejas · Arroz a la valenciana · Cazuela de vegetales · Humita</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -837,31 +1018,355 @@
     <!-- 7. Bases de Producción -->
     <div class="flip-card">
       <div class="flip-inner">
-        <div class="flip-front" style="background-image: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=600&q=80')">
-          <div class="flip-front-content">
-            <span class="flip-cat-icon">👨‍🍳</span>
-            <div class="flip-cat-name">Bases de Producción</div>
-            <div class="flip-hint">Ver insumos →</div>
+        <div class="flip-face front">
+          <div class="face-layer" style="background-image:url('https://images.unsplash.com/photo-1602030638412-bb8dcc0bc8b0?w=600&q=80')">
+            <span class="face-tag">Al vacío · Ultracongelado</span>
+            <div class="face-content">
+              <div class="face-name">Bases de Producción</div>
+              <div class="face-hint">Ver plato terminado</div>
+            </div>
           </div>
         </div>
-        <div class="flip-back">
-          <div class="flip-back-title">Bases de Producción</div>
-          <ul>
-            <li>Pollo salteado solo / con vegetales</li>
-            <li>Ternera desmenuzada</li>
-            <li>Pata muslo asada</li>
-            <li>Rellenos de carne o pollo</li>
-            <li>Rellenos de verduras / choclo</li>
-            <li>Relleno carne estilo criolla</li>
-            <li>Vegetales grillados en juliana</li>
-          </ul>
-          <div class="flip-platos">Insumos listos para armar empanadas, tartas, rolls y preparaciones propias.</div>
+        <div class="flip-face back">
+          <div class="face-layer" style="background-image:url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=600&q=80')">
+            <span class="face-tag">Listo para servir</span>
+            <div class="face-content">
+              <div class="face-name">Bases de Producción</div>
+              <div class="face-platos">Pollo salteado · Ternera desmenuzada · Rellenos criolla · Vegetales en juliana</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
   </div>
+
+  <!-- ACORDEÓN DE PRODUCTOS -->
+  <div class="productos-acordeon">
+    <h3 class="acordeon-titulo">Potenciá tu carta con <em>Cook & Chill</em></h3>
+    <p class="acordeon-subtitulo">Hacé click en cada categoría para ver el detalle completo de productos y combinaciones sugeridas.</p>
+
+    <!-- 1 -->
+    <div class="acordeon-item">
+      <div class="acordeon-header" onclick="toggleAcordeon(this)">
+        <div class="acordeon-header-left">
+          <span class="acordeon-icon">🥩</span>
+          <span class="acordeon-name">Proteínas Cocidas</span>
+          <span class="acordeon-count">9 productos</span>
+        </div>
+        <span class="acordeon-arrow">▼</span>
+      </div>
+      <div class="acordeon-body">
+        <div class="acordeon-cols">
+          <div>
+            <div class="acol-section-title">Pollo</div>
+            <ul class="acol-list">
+              <li>Pechuga grillada</li>
+              <li>Pechuga en juliana salteada</li>
+              <li>Pata muslo asada</li>
+            </ul>
+            <div class="acol-section-title" style="margin-top:1rem">Cerdo</div>
+            <ul class="acol-list">
+              <li>Bondiola braseada (entera o desmenuzada)</li>
+              <li>Solomillo asado en jugo de cocción</li>
+              <li>Ribs ahumadas a la barbacoa</li>
+            </ul>
+          </div>
+          <div>
+            <div class="acol-section-title">Carne vacuna</div>
+            <ul class="acol-list">
+              <li>Entrecot asado</li>
+              <li>Lomo grillado</li>
+              <li>Albóndigas en salsa</li>
+            </ul>
+            <div class="acol-section-title" style="margin-top:1rem">Pescados</div>
+            <ul class="acol-list">
+              <li>Salmón al limón</li>
+              <li>Trucha al limón</li>
+            </ul>
+            <div class="acol-platos">
+              <div class="acol-platos-title">Platos que podés armar</div>
+              <ul>
+                <li>Suprema a la mostaza</li>
+                <li>Lomo demiglacé con puré</li>
+                <li>Cerdo BBQ con arroz cremoso</li>
+                <li>Trucha con vegetales grillados</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="acordeon-item">
+      <div class="acordeon-header" onclick="toggleAcordeon(this)">
+        <div class="acordeon-header-left">
+          <span class="acordeon-icon">🥔</span>
+          <span class="acordeon-name">Guarniciones</span>
+          <span class="acordeon-count">11 productos</span>
+        </div>
+        <span class="acordeon-arrow">▼</span>
+      </div>
+      <div class="acordeon-body">
+        <div class="acordeon-cols">
+          <div>
+            <div class="acol-section-title">Purés</div>
+            <ul class="acol-list">
+              <li>Puré de papas</li>
+              <li>Puré de calabaza</li>
+              <li>Puré mixto boniato y miel</li>
+            </ul>
+            <div class="acol-section-title" style="margin-top:1rem">Papas</div>
+            <ul class="acol-list">
+              <li>Papas al horno</li>
+              <li>Papas a la crema</li>
+              <li>Milhojas de papas</li>
+            </ul>
+          </div>
+          <div>
+            <div class="acol-section-title">Arroces y granos</div>
+            <ul class="acol-list">
+              <li>Arroz blanco</li>
+              <li>Risotto</li>
+              <li>Legumbres cocidas</li>
+            </ul>
+            <div class="acol-section-title" style="margin-top:1rem">Verduras</div>
+            <ul class="acol-list">
+              <li>Verduras grilladas</li>
+              <li>Verduras al vapor</li>
+            </ul>
+            <div class="acol-platos">
+              <div class="acol-platos-title">Platos que podés armar</div>
+              <ul>
+                <li>Milanesa con puré de papas</li>
+                <li>Cerdo demiglacé con puré de calabaza</li>
+                <li>Bowl de proteína con risotto</li>
+                <li>Ternera con milhojas</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="acordeon-item">
+      <div class="acordeon-header" onclick="toggleAcordeon(this)">
+        <div class="acordeon-header-left">
+          <span class="acordeon-icon">🍝</span>
+          <span class="acordeon-name">Pastas & Salsas</span>
+          <span class="acordeon-count">13 productos</span>
+        </div>
+        <span class="acordeon-arrow">▼</span>
+      </div>
+      <div class="acordeon-body">
+        <div class="acordeon-cols">
+          <div>
+            <div class="acol-section-title">Pastas laminadas</div>
+            <ul class="acol-list">
+              <li>Tallarines</li>
+              <li>Fettuccine</li>
+            </ul>
+            <div class="acol-section-title" style="margin-top:1rem">Pastas rellenas</div>
+            <ul class="acol-list">
+              <li>Sorrentinos</li>
+              <li>Ravioles</li>
+              <li>Panzottis</li>
+            </ul>
+          </div>
+          <div>
+            <div class="acol-section-title">Salsas</div>
+            <ul class="acol-list">
+              <li>Fileto</li>
+              <li>Bolognesa</li>
+              <li>Bechamel</li>
+              <li>Crema de verdeo</li>
+              <li>Demi-glace</li>
+              <li>De hongos</li>
+              <li>Cuatro quesos</li>
+              <li>Frutos de mar</li>
+              <li>Pesto de nuez</li>
+            </ul>
+            <div class="acol-platos">
+              <div class="acol-platos-title">Platos que podés armar</div>
+              <ul>
+                <li>Sorrentinos 4 quesos</li>
+                <li>Ravioles al pesto de nuez</li>
+                <li>Fettuccine frutos de mar</li>
+                <li>Panzottis con demi-glace</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="acordeon-item">
+      <div class="acordeon-header" onclick="toggleAcordeon(this)">
+        <div class="acordeon-header-left">
+          <span class="acordeon-icon">🍽️</span>
+          <span class="acordeon-name">Platos Combinados</span>
+          <span class="acordeon-count">3 productos</span>
+        </div>
+        <span class="acordeon-arrow">▼</span>
+      </div>
+      <div class="acordeon-body">
+        <div class="acordeon-cols">
+          <div>
+            <div class="acol-section-title">Preparaciones completas</div>
+            <ul class="acol-list">
+              <li>Pastel de papa</li>
+              <li>Lasagna</li>
+              <li>Canelones</li>
+            </ul>
+          </div>
+          <div>
+            <div class="acol-platos" style="margin-top:0">
+              <div class="acol-platos-title">Cómo funcionan</div>
+              <ul>
+                <li>Porcionados y listos para regenerar</li>
+                <li>Sin necesidad de ensamble</li>
+                <li>Ideales para servicio masivo</li>
+                <li>Presentación prolija garantizada</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="acordeon-item">
+      <div class="acordeon-header" onclick="toggleAcordeon(this)">
+        <div class="acordeon-header-left">
+          <span class="acordeon-icon">🍲</span>
+          <span class="acordeon-name">Sopas & Cremas</span>
+          <span class="acordeon-count">4 productos</span>
+        </div>
+        <span class="acordeon-arrow">▼</span>
+      </div>
+      <div class="acordeon-body">
+        <div class="acordeon-cols">
+          <div>
+            <div class="acol-section-title">Cremas</div>
+            <ul class="acol-list">
+              <li>Crema de calabaza</li>
+              <li>Crema de choclo</li>
+              <li>Crema de arvejas</li>
+            </ul>
+            <div class="acol-section-title" style="margin-top:1rem">Sopas</div>
+            <ul class="acol-list">
+              <li>Sopa de minestrone</li>
+            </ul>
+          </div>
+          <div>
+            <div class="acol-platos" style="margin-top:0">
+              <div class="acol-platos-title">Platos que podés armar</div>
+              <ul>
+                <li>Entrada de temporada</li>
+                <li>Menú institucional liviano</li>
+                <li>Servicio de almuerzo ejecutivo</li>
+                <li>Acompañamiento de platos principales</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="acordeon-item">
+      <div class="acordeon-header" onclick="toggleAcordeon(this)">
+        <div class="acordeon-header-left">
+          <span class="acordeon-icon">🫕</span>
+          <span class="acordeon-name">Cazuelas & Estofados</span>
+          <span class="acordeon-count">4 productos</span>
+        </div>
+        <span class="acordeon-arrow">▼</span>
+      </div>
+      <div class="acordeon-body">
+        <div class="acordeon-cols">
+          <div>
+            <div class="acol-section-title">Cazuelas y estofados</div>
+            <ul class="acol-list">
+              <li>Cazuela de lentejas</li>
+              <li>Arroz a la valenciana</li>
+              <li>Cazuela de vegetales</li>
+              <li>Humita</li>
+            </ul>
+          </div>
+          <div>
+            <div class="acol-platos" style="margin-top:0">
+              <div class="acol-platos-title">Platos que podés armar</div>
+              <ul>
+                <li>Cazuela de lentejas con pan</li>
+                <li>Arroz a la valenciana completo</li>
+                <li>Menú vegetariano de temporada</li>
+                <li>Servicio de comida casera en volumen</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="acordeon-item">
+      <div class="acordeon-header" onclick="toggleAcordeon(this)">
+        <div class="acordeon-header-left">
+          <span class="acordeon-icon">👨‍🍳</span>
+          <span class="acordeon-name">Bases de Producción</span>
+          <span class="acordeon-count">7 productos</span>
+        </div>
+        <span class="acordeon-arrow">▼</span>
+      </div>
+      <div class="acordeon-body">
+        <div class="acordeon-cols">
+          <div>
+            <div class="acol-section-title">Proteínas base</div>
+            <ul class="acol-list">
+              <li>Pollo salteado (solo o con vegetales)</li>
+              <li>Ternera desmenuzada</li>
+              <li>Pata muslo asada</li>
+            </ul>
+            <div class="acol-section-title" style="margin-top:1rem">Rellenos</div>
+            <ul class="acol-list">
+              <li>Relleno de carne o pollo</li>
+              <li>Relleno de verduras o choclo</li>
+              <li>Relleno de carne estilo criolla</li>
+              <li>Vegetales grillados en juliana</li>
+            </ul>
+          </div>
+          <div>
+            <div class="acol-platos" style="margin-top:0">
+              <div class="acol-platos-title">Platos que podés armar</div>
+              <ul>
+                <li>Empanadas propias</li>
+                <li>Tartas y pasteles</li>
+                <li>Rolls y canelones</li>
+                <li>Tostados gourmet</li>
+                <li>Bocadillos para catering</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /acordeón -->
+
 </section>
+
+<script>
+function toggleAcordeon(header) {
+  const item = header.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.acordeon-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
 
 <!-- BANNER VIDEO -->
 <section id="banner-video">
