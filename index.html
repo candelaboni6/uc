@@ -416,168 +416,106 @@
     font-style: italic;
   }
 
-  /* ACORDEÓN DE PRODUCTOS */
-  .productos-acordeon {
+  /* ── CATÁLOGO TABS + CARDS ── */
+  .catalogo-tabs-wrap {
     max-width: 1200px;
     margin: 0 auto;
   }
 
-  .acordeon-titulo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--negro);
-    text-align: center;
-    margin-bottom: 0.5rem;
-  }
-  .acordeon-titulo em { font-style: italic; color: var(--verde); }
-  .acordeon-subtitulo {
-    text-align: center;
-    font-size: 0.9rem;
+  .cat-intro {
+    font-size: 1rem;
     font-weight: 300;
     color: var(--gris-medio);
+    line-height: 1.7;
+    max-width: 640px;
+    margin-bottom: 2rem;
+  }
+
+  .tabs-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
     margin-bottom: 2.5rem;
   }
 
-  .acordeon-item {
-    border-bottom: 1px solid #e8e8e8;
-  }
-
-  .acordeon-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.25rem 0.5rem;
-    cursor: pointer;
-    user-select: none;
-    transition: color .2s;
-    gap: 1rem;
-  }
-  .acordeon-header:hover { color: var(--verde); }
-
-  .acordeon-header-left {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .acordeon-icon {
-    font-size: 1.4rem;
-    width: 40px;
-    text-align: center;
-    flex-shrink: 0;
-  }
-
-  .acordeon-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--negro);
-    transition: color .2s;
-  }
-  .acordeon-header:hover .acordeon-name { color: var(--verde); }
-
-  .acordeon-count {
-    font-size: 0.72rem;
+  .tab-btn {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.82rem;
     font-weight: 500;
-    color: var(--gris-medio);
-    background: var(--gris);
-    padding: 0.2rem 0.6rem;
-    border-radius: 20px;
+    color: var(--texto);
+    background: transparent;
+    border: 1.5px solid #d5d5d0;
+    border-radius: 50px;
+    padding: 0.45rem 1.1rem;
+    cursor: pointer;
+    transition: all .2s;
+    white-space: nowrap;
   }
 
-  .acordeon-arrow {
-    font-size: 1.1rem;
+  .tab-btn:hover {
+    border-color: var(--verde);
     color: var(--verde);
-    transition: transform .3s ease;
-    flex-shrink: 0;
   }
-  .acordeon-item.open .acordeon-arrow { transform: rotate(180deg); }
 
-  .acordeon-body {
-    display: none;
-    padding: 0 0.5rem 1.75rem;
+  .tab-btn.active {
+    background: var(--verde);
+    border-color: var(--verde);
+    color: var(--blanco);
+    font-weight: 600;
   }
-  .acordeon-item.open .acordeon-body { display: block; }
 
-  .acordeon-cols {
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .products-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
   }
 
-  .acol-section-title {
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--verde);
-    margin-bottom: 0.75rem;
+  @media (max-width: 700px) {
+    .products-grid { grid-template-columns: 1fr; }
+    .tabs-row { gap: 0.4rem; }
+    .tab-btn { font-size: 0.75rem; padding: 0.35rem 0.85rem; }
   }
 
-  .acol-list {
-    list-style: none;
-  }
-
-  .acol-list li {
-    font-size: 0.88rem;
-    font-weight: 400;
-    color: #444;
-    padding: 0.3rem 0;
-    padding-left: 1.1rem;
-    position: relative;
-    border-bottom: 1px solid #f0f0f0;
-    line-height: 1.4;
-  }
-
-  .acol-list li:last-child { border-bottom: none; }
-
-  .acol-list li::before {
-    content: '·';
-    position: absolute;
-    left: 0;
-    color: var(--verde);
-    font-weight: 700;
-    font-size: 1.1rem;
-    line-height: 1.2;
-  }
-
-  .acol-platos {
-    margin-top: 1rem;
-    padding: 1rem;
-    background: var(--verde-light);
+  .product-card {
+    background: #f8f7f4;
     border-radius: 8px;
     border-left: 3px solid var(--verde);
-  }
-
-  .acol-platos-title {
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--verde);
-    margin-bottom: 0.5rem;
-  }
-
-  .acol-platos ul {
-    list-style: none;
+    padding: 0.85rem 1rem;
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
+    flex-direction: column;
+    gap: 0.2rem;
   }
 
-  .acol-platos ul li {
-    font-size: 0.78rem;
+  .product-card-name {
+    font-size: 0.9rem;
     font-weight: 500;
-    color: var(--verde-dark);
-    background: rgba(26,158,143,0.12);
-    padding: 0.25rem 0.7rem;
-    border-radius: 20px;
+    color: var(--negro);
+    line-height: 1.3;
   }
 
-  @media (max-width: 640px) {
-    .acordeon-cols { grid-template-columns: 1fr; gap: 1.5rem; }
+  .product-card-sub {
+    font-size: 0.76rem;
+    font-weight: 300;
+    color: #999;
+    font-style: italic;
   }
+
+  .cat-note {
+    background: #f0f7f5;
+    border-left: 3px solid var(--verde);
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.25rem;
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: #555;
+    line-height: 1.65;
+    margin-top: 0.5rem;
+  }
+  .cat-note strong { color: var(--negro); font-weight: 600; }
 
   /* ─── BANNER VIDEO ─── */
   #banner-video {
@@ -708,47 +646,74 @@
   }
 
   #rubros .section-label { color: rgba(255,255,255,0.6); }
-  #rubros .section-title { color: var(--blanco); margin: 0 auto 0.75rem; }
+  #rubros .section-title { color: var(--blanco) !important; margin: 0 auto 0.75rem; }
+  #rubros .section-title em { color: rgba(255,255,255,0.7) !important; font-style: italic; }
   #rubros .section-desc { color: rgba(255,255,255,0.75); margin: 0 auto 3.5rem; }
 
   .rubros-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0 auto;
+  }
+
+  @media (min-width: 900px) {
+    .rubros-grid { grid-template-columns: repeat(6, 1fr); }
+    .rubros-grid .rubro-item:nth-child(7),
+    .rubros-grid .rubro-item:nth-child(8),
+    .rubros-grid .rubro-item:nth-child(9) {
+      grid-column: span 2;
+      max-width: 220px;
+      justify-self: center;
+      width: 100%;
+    }
   }
 
   .rubro-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.85rem;
     padding: 1.75rem 1rem;
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.22);
+    background: rgba(255,255,255,0.06);
     transition: background .2s, border-color .2s, transform .2s;
     cursor: default;
   }
 
   .rubro-item:hover {
-    background: rgba(255,255,255,0.1);
-    border-color: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.14);
+    border-color: rgba(255,255,255,0.45);
     transform: translateY(-3px);
   }
 
   .rubro-icon {
-    font-size: 2rem;
-    opacity: 0.9;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.92;
+  }
+  .rubro-icon svg {
+    width: 100%;
+    height: 100%;
+    stroke: white;
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   .rubro-name {
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.03em;
     color: var(--blanco);
     text-align: center;
-    line-height: 1.3;
+    line-height: 1.35;
   }
 
   /* ─── CTA FINAL ─── */
@@ -1041,330 +1006,125 @@
 
   </div>
 
-  <!-- ACORDEÓN DE PRODUCTOS -->
-  <div class="productos-acordeon">
-    <h3 class="acordeon-titulo">Potenciá tu carta con <em>Cook & Chill</em></h3>
-    <p class="acordeon-subtitulo">Hacé click en cada categoría para ver el detalle completo de productos y combinaciones sugeridas.</p>
+  <!-- CATÁLOGO TABS + CARDS -->
+  <div class="catalogo-tabs-wrap">
+    <p class="cat-intro">Todas las líneas disponibles en formato porción individual o a granel, refrigerado o ultracongelado, envasado al vacío o en atmósfera modificada.</p>
 
-    <!-- 1 -->
-    <div class="acordeon-item">
-      <div class="acordeon-header" onclick="toggleAcordeon(this)">
-        <div class="acordeon-header-left">
-          <span class="acordeon-icon">🥩</span>
-          <span class="acordeon-name">Proteínas Cocidas</span>
-          <span class="acordeon-count">9 productos</span>
-        </div>
-        <span class="acordeon-arrow">▼</span>
-      </div>
-      <div class="acordeon-body">
-        <div class="acordeon-cols">
-          <div>
-            <div class="acol-section-title">Pollo</div>
-            <ul class="acol-list">
-              <li>Pechuga grillada</li>
-              <li>Pechuga en juliana salteada</li>
-              <li>Pata muslo asada</li>
-            </ul>
-            <div class="acol-section-title" style="margin-top:1rem">Cerdo</div>
-            <ul class="acol-list">
-              <li>Bondiola braseada (entera o desmenuzada)</li>
-              <li>Solomillo asado en jugo de cocción</li>
-              <li>Ribs ahumadas a la barbacoa</li>
-            </ul>
-          </div>
-          <div>
-            <div class="acol-section-title">Carne vacuna</div>
-            <ul class="acol-list">
-              <li>Entrecot asado</li>
-              <li>Lomo grillado</li>
-              <li>Albóndigas en salsa</li>
-            </ul>
-            <div class="acol-section-title" style="margin-top:1rem">Pescados</div>
-            <ul class="acol-list">
-              <li>Salmón al limón</li>
-              <li>Trucha al limón</li>
-            </ul>
-            <div class="acol-platos">
-              <div class="acol-platos-title">Platos que podés armar</div>
-              <ul>
-                <li>Suprema a la mostaza</li>
-                <li>Lomo demiglacé con puré</li>
-                <li>Cerdo BBQ con arroz cremoso</li>
-                <li>Trucha con vegetales grillados</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="tabs-row">
+      <button class="tab-btn active" onclick="showTab('proteinas', this)">Proteínas</button>
+      <button class="tab-btn" onclick="showTab('guarniciones', this)">Guarniciones</button>
+      <button class="tab-btn" onclick="showTab('pastas', this)">Pastas</button>
+      <button class="tab-btn" onclick="showTab('combinados', this)">Combinados</button>
+      <button class="tab-btn" onclick="showTab('cazuelas', this)">Cazuelas</button>
+      <button class="tab-btn" onclick="showTab('sopas', this)">Sopas y cremas</button>
+      <button class="tab-btn" onclick="showTab('bases', this)">Bases de producción</button>
     </div>
 
-    <!-- 2 -->
-    <div class="acordeon-item">
-      <div class="acordeon-header" onclick="toggleAcordeon(this)">
-        <div class="acordeon-header-left">
-          <span class="acordeon-icon">🥔</span>
-          <span class="acordeon-name">Guarniciones</span>
-          <span class="acordeon-count">11 productos</span>
-        </div>
-        <span class="acordeon-arrow">▼</span>
+    <div class="tab-panel active" id="tab-proteinas">
+      <div class="products-grid">
+        <div class="product-card"><div class="product-card-name">Pechuga de pollo grillada</div></div>
+        <div class="product-card"><div class="product-card-name">Pata muslo asada</div></div>
+        <div class="product-card"><div class="product-card-name">Pollo en juliana salteado</div></div>
+        <div class="product-card"><div class="product-card-name">Bondiola braseada</div><div class="product-card-sub">entera o desmenuzada</div></div>
+        <div class="product-card"><div class="product-card-name">Solomillo de cerdo asado</div><div class="product-card-sub">en jugo de cocción</div></div>
+        <div class="product-card"><div class="product-card-name">Ribs ahumados a la barbacoa</div></div>
+        <div class="product-card"><div class="product-card-name">Entrecot asado</div></div>
+        <div class="product-card"><div class="product-card-name">Lomo grillado</div></div>
+        <div class="product-card"><div class="product-card-name">Albóndigas en salsa</div></div>
+        <div class="product-card"><div class="product-card-name">Salmón o trucha al limón</div></div>
       </div>
-      <div class="acordeon-body">
-        <div class="acordeon-cols">
-          <div>
-            <div class="acol-section-title">Purés</div>
-            <ul class="acol-list">
-              <li>Puré de papas</li>
-              <li>Puré de calabaza</li>
-              <li>Puré mixto boniato y miel</li>
-            </ul>
-            <div class="acol-section-title" style="margin-top:1rem">Papas</div>
-            <ul class="acol-list">
-              <li>Papas al horno</li>
-              <li>Papas a la crema</li>
-              <li>Milhojas de papas</li>
-            </ul>
-          </div>
-          <div>
-            <div class="acol-section-title">Arroces y granos</div>
-            <ul class="acol-list">
-              <li>Arroz blanco</li>
-              <li>Risotto</li>
-              <li>Legumbres cocidas</li>
-            </ul>
-            <div class="acol-section-title" style="margin-top:1rem">Verduras</div>
-            <ul class="acol-list">
-              <li>Verduras grilladas</li>
-              <li>Verduras al vapor</li>
-            </ul>
-            <div class="acol-platos">
-              <div class="acol-platos-title">Platos que podés armar</div>
-              <ul>
-                <li>Milanesa con puré de papas</li>
-                <li>Cerdo demiglacé con puré de calabaza</li>
-                <li>Bowl de proteína con risotto</li>
-                <li>Ternera con milhojas</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="cat-note">Todos los productos pueden solicitarse en <strong>porción individual o a granel</strong>, en formato <strong>refrigerado o ultracongelado</strong>, envasados al vacío o en atmósfera modificada según necesidad operativa.</div>
     </div>
 
-    <!-- 3 -->
-    <div class="acordeon-item">
-      <div class="acordeon-header" onclick="toggleAcordeon(this)">
-        <div class="acordeon-header-left">
-          <span class="acordeon-icon">🍝</span>
-          <span class="acordeon-name">Pastas & Salsas</span>
-          <span class="acordeon-count">13 productos</span>
-        </div>
-        <span class="acordeon-arrow">▼</span>
+    <div class="tab-panel" id="tab-guarniciones">
+      <div class="products-grid">
+        <div class="product-card"><div class="product-card-name">Puré de papas</div></div>
+        <div class="product-card"><div class="product-card-name">Puré de calabaza</div></div>
+        <div class="product-card"><div class="product-card-name">Puré mixto boniato y miel</div></div>
+        <div class="product-card"><div class="product-card-name">Papas al horno</div></div>
+        <div class="product-card"><div class="product-card-name">Papas a la crema</div></div>
+        <div class="product-card"><div class="product-card-name">Milhojas de papas</div></div>
+        <div class="product-card"><div class="product-card-name">Arroz blanco</div></div>
+        <div class="product-card"><div class="product-card-name">Risotto</div></div>
+        <div class="product-card"><div class="product-card-name">Legumbres cocidas</div></div>
+        <div class="product-card"><div class="product-card-name">Verduras grilladas</div></div>
+        <div class="product-card"><div class="product-card-name">Verduras al vapor</div></div>
       </div>
-      <div class="acordeon-body">
-        <div class="acordeon-cols">
-          <div>
-            <div class="acol-section-title">Pastas laminadas</div>
-            <ul class="acol-list">
-              <li>Tallarines</li>
-              <li>Fettuccine</li>
-            </ul>
-            <div class="acol-section-title" style="margin-top:1rem">Pastas rellenas</div>
-            <ul class="acol-list">
-              <li>Sorrentinos</li>
-              <li>Ravioles</li>
-              <li>Panzottis</li>
-            </ul>
-          </div>
-          <div>
-            <div class="acol-section-title">Salsas</div>
-            <ul class="acol-list">
-              <li>Fileto</li>
-              <li>Bolognesa</li>
-              <li>Bechamel</li>
-              <li>Crema de verdeo</li>
-              <li>Demi-glace</li>
-              <li>De hongos</li>
-              <li>Cuatro quesos</li>
-              <li>Frutos de mar</li>
-              <li>Pesto de nuez</li>
-            </ul>
-            <div class="acol-platos">
-              <div class="acol-platos-title">Platos que podés armar</div>
-              <ul>
-                <li>Sorrentinos 4 quesos</li>
-                <li>Ravioles al pesto de nuez</li>
-                <li>Fettuccine frutos de mar</li>
-                <li>Panzottis con demi-glace</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="cat-note">Todos los productos pueden solicitarse en <strong>porción individual o a granel</strong>, en formato <strong>refrigerado o ultracongelado</strong>, envasados al vacío o en atmósfera modificada según necesidad operativa.</div>
     </div>
 
-    <!-- 4 -->
-    <div class="acordeon-item">
-      <div class="acordeon-header" onclick="toggleAcordeon(this)">
-        <div class="acordeon-header-left">
-          <span class="acordeon-icon">🍽️</span>
-          <span class="acordeon-name">Platos Combinados</span>
-          <span class="acordeon-count">3 productos</span>
-        </div>
-        <span class="acordeon-arrow">▼</span>
+    <div class="tab-panel" id="tab-pastas">
+      <div class="products-grid">
+        <div class="product-card"><div class="product-card-name">Tallarines</div></div>
+        <div class="product-card"><div class="product-card-name">Fettuccine</div></div>
+        <div class="product-card"><div class="product-card-name">Sorrentinos</div></div>
+        <div class="product-card"><div class="product-card-name">Ravioles</div></div>
+        <div class="product-card"><div class="product-card-name">Panzottis</div></div>
+        <div class="product-card"><div class="product-card-name">Salsa fileto</div></div>
+        <div class="product-card"><div class="product-card-name">Salsa bolognesa</div></div>
+        <div class="product-card"><div class="product-card-name">Salsa bechamel</div></div>
+        <div class="product-card"><div class="product-card-name">Crema de verdeo</div></div>
+        <div class="product-card"><div class="product-card-name">Demi-glace</div></div>
+        <div class="product-card"><div class="product-card-name">Salsa de hongos</div></div>
+        <div class="product-card"><div class="product-card-name">Cuatro quesos</div></div>
+        <div class="product-card"><div class="product-card-name">Frutos de mar</div></div>
+        <div class="product-card"><div class="product-card-name">Pesto de nuez</div></div>
       </div>
-      <div class="acordeon-body">
-        <div class="acordeon-cols">
-          <div>
-            <div class="acol-section-title">Preparaciones completas</div>
-            <ul class="acol-list">
-              <li>Pastel de papa</li>
-              <li>Lasagna</li>
-              <li>Canelones</li>
-            </ul>
-          </div>
-          <div>
-            <div class="acol-platos" style="margin-top:0">
-              <div class="acol-platos-title">Cómo funcionan</div>
-              <ul>
-                <li>Porcionados y listos para regenerar</li>
-                <li>Sin necesidad de ensamble</li>
-                <li>Ideales para servicio masivo</li>
-                <li>Presentación prolija garantizada</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="cat-note">Todos los productos pueden solicitarse en <strong>porción individual o a granel</strong>, en formato <strong>refrigerado o ultracongelado</strong>, envasados al vacío o en atmósfera modificada según necesidad operativa.</div>
     </div>
 
-    <!-- 5 -->
-    <div class="acordeon-item">
-      <div class="acordeon-header" onclick="toggleAcordeon(this)">
-        <div class="acordeon-header-left">
-          <span class="acordeon-icon">🍲</span>
-          <span class="acordeon-name">Sopas & Cremas</span>
-          <span class="acordeon-count">4 productos</span>
-        </div>
-        <span class="acordeon-arrow">▼</span>
+    <div class="tab-panel" id="tab-combinados">
+      <div class="products-grid">
+        <div class="product-card"><div class="product-card-name">Pastel de papa</div></div>
+        <div class="product-card"><div class="product-card-name">Lasagna</div></div>
+        <div class="product-card"><div class="product-card-name">Canelones</div></div>
       </div>
-      <div class="acordeon-body">
-        <div class="acordeon-cols">
-          <div>
-            <div class="acol-section-title">Cremas</div>
-            <ul class="acol-list">
-              <li>Crema de calabaza</li>
-              <li>Crema de choclo</li>
-              <li>Crema de arvejas</li>
-            </ul>
-            <div class="acol-section-title" style="margin-top:1rem">Sopas</div>
-            <ul class="acol-list">
-              <li>Sopa de minestrone</li>
-            </ul>
-          </div>
-          <div>
-            <div class="acol-platos" style="margin-top:0">
-              <div class="acol-platos-title">Platos que podés armar</div>
-              <ul>
-                <li>Entrada de temporada</li>
-                <li>Menú institucional liviano</li>
-                <li>Servicio de almuerzo ejecutivo</li>
-                <li>Acompañamiento de platos principales</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="cat-note">Preparaciones completas, <strong>porcionadas y listas para regenerar</strong>. Sin necesidad de ensamble. Ideales para servicio masivo con presentación prolija garantizada.</div>
     </div>
 
-    <!-- 6 -->
-    <div class="acordeon-item">
-      <div class="acordeon-header" onclick="toggleAcordeon(this)">
-        <div class="acordeon-header-left">
-          <span class="acordeon-icon">🫕</span>
-          <span class="acordeon-name">Cazuelas & Estofados</span>
-          <span class="acordeon-count">4 productos</span>
-        </div>
-        <span class="acordeon-arrow">▼</span>
+    <div class="tab-panel" id="tab-cazuelas">
+      <div class="products-grid">
+        <div class="product-card"><div class="product-card-name">Cazuela de lentejas</div></div>
+        <div class="product-card"><div class="product-card-name">Arroz a la valenciana</div></div>
+        <div class="product-card"><div class="product-card-name">Cazuela de vegetales</div></div>
+        <div class="product-card"><div class="product-card-name">Humita</div></div>
       </div>
-      <div class="acordeon-body">
-        <div class="acordeon-cols">
-          <div>
-            <div class="acol-section-title">Cazuelas y estofados</div>
-            <ul class="acol-list">
-              <li>Cazuela de lentejas</li>
-              <li>Arroz a la valenciana</li>
-              <li>Cazuela de vegetales</li>
-              <li>Humita</li>
-            </ul>
-          </div>
-          <div>
-            <div class="acol-platos" style="margin-top:0">
-              <div class="acol-platos-title">Platos que podés armar</div>
-              <ul>
-                <li>Cazuela de lentejas con pan</li>
-                <li>Arroz a la valenciana completo</li>
-                <li>Menú vegetariano de temporada</li>
-                <li>Servicio de comida casera en volumen</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="cat-note">Todos los productos pueden solicitarse en <strong>porción individual o a granel</strong>, en formato <strong>refrigerado o ultracongelado</strong>, envasados al vacío o en atmósfera modificada según necesidad operativa.</div>
     </div>
 
-    <!-- 7 -->
-    <div class="acordeon-item">
-      <div class="acordeon-header" onclick="toggleAcordeon(this)">
-        <div class="acordeon-header-left">
-          <span class="acordeon-icon">👨‍🍳</span>
-          <span class="acordeon-name">Bases de Producción</span>
-          <span class="acordeon-count">7 productos</span>
-        </div>
-        <span class="acordeon-arrow">▼</span>
+    <div class="tab-panel" id="tab-sopas">
+      <div class="products-grid">
+        <div class="product-card"><div class="product-card-name">Crema de calabaza</div></div>
+        <div class="product-card"><div class="product-card-name">Crema de choclo</div></div>
+        <div class="product-card"><div class="product-card-name">Crema de arvejas</div></div>
+        <div class="product-card"><div class="product-card-name">Sopa minestrone</div></div>
       </div>
-      <div class="acordeon-body">
-        <div class="acordeon-cols">
-          <div>
-            <div class="acol-section-title">Proteínas base</div>
-            <ul class="acol-list">
-              <li>Pollo salteado (solo o con vegetales)</li>
-              <li>Ternera desmenuzada</li>
-              <li>Pata muslo asada</li>
-            </ul>
-            <div class="acol-section-title" style="margin-top:1rem">Rellenos</div>
-            <ul class="acol-list">
-              <li>Relleno de carne o pollo</li>
-              <li>Relleno de verduras o choclo</li>
-              <li>Relleno de carne estilo criolla</li>
-              <li>Vegetales grillados en juliana</li>
-            </ul>
-          </div>
-          <div>
-            <div class="acol-platos" style="margin-top:0">
-              <div class="acol-platos-title">Platos que podés armar</div>
-              <ul>
-                <li>Empanadas propias</li>
-                <li>Tartas y pasteles</li>
-                <li>Rolls y canelones</li>
-                <li>Tostados gourmet</li>
-                <li>Bocadillos para catering</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="cat-note">Todos los productos pueden solicitarse en <strong>porción individual o a granel</strong>, en formato <strong>refrigerado o ultracongelado</strong>, envasados al vacío o en atmósfera modificada según necesidad operativa.</div>
     </div>
 
-  </div><!-- /acordeón -->
+    <div class="tab-panel" id="tab-bases">
+      <div class="products-grid">
+        <div class="product-card"><div class="product-card-name">Pollo salteado</div><div class="product-card-sub">solo o con vegetales</div></div>
+        <div class="product-card"><div class="product-card-name">Ternera desmenuzada</div></div>
+        <div class="product-card"><div class="product-card-name">Pata muslo asada</div></div>
+        <div class="product-card"><div class="product-card-name">Relleno de carne o pollo</div></div>
+        <div class="product-card"><div class="product-card-name">Relleno de verduras o choclo</div></div>
+        <div class="product-card"><div class="product-card-name">Relleno estilo criolla</div></div>
+        <div class="product-card"><div class="product-card-name">Vegetales grillados en juliana</div></div>
+      </div>
+      <div class="cat-note">Insumos listos para que vos armes: empanadas, tartas, rolls, canelones y bocadillos. Todos en formato <strong>porción o a granel</strong>, ultracongelados y listos para usar.</div>
+    </div>
+
+  </div>
 
 </section>
 
 <script>
-function toggleAcordeon(header) {
-  const item = header.parentElement;
-  const isOpen = item.classList.contains('open');
-  document.querySelectorAll('.acordeon-item.open').forEach(i => i.classList.remove('open'));
-  if (!isOpen) item.classList.add('open');
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
 }
 </script>
 
@@ -1432,46 +1192,74 @@ function toggleAcordeon(header) {
 <!-- RUBROS -->
 <section id="rubros">
   <div class="section-label">A quiénes servimos</div>
-  <h2 class="section-title">Soluciones para<br><em>cada rubro</em></h2>
+  <h2 class="section-title" style="color:#fff">Soluciones para<br><em style="color:rgba(255,255,255,0.75)">cada rubro</em></h2>
   <p class="section-desc">Nuestros productos se adaptan a cualquier cocina profesional que busque eficiencia, calidad y consistencia.</p>
 
   <div class="rubros-grid">
+
     <div class="rubro-item">
-      <div class="rubro-icon">🍽️</div>
+      <div class="rubro-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+      </div>
       <div class="rubro-name">Restaurantes</div>
     </div>
+
     <div class="rubro-item">
-      <div class="rubro-icon">🏨</div>
+      <div class="rubro-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+      </div>
       <div class="rubro-name">Hoteles</div>
     </div>
+
     <div class="rubro-item">
-      <div class="rubro-icon">🏥</div>
+      <div class="rubro-icon">
+        <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
       <div class="rubro-name">Clínicas y hospitales</div>
     </div>
+
     <div class="rubro-item">
-      <div class="rubro-icon">🧓</div>
+      <div class="rubro-icon">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      </div>
       <div class="rubro-name">Geriátricos</div>
     </div>
+
     <div class="rubro-item">
-      <div class="rubro-icon">🎪</div>
+      <div class="rubro-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
       <div class="rubro-name">Catering social</div>
     </div>
+
     <div class="rubro-item">
-      <div class="rubro-icon">🏢</div>
+      <div class="rubro-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
       <div class="rubro-name">Catering corporativo</div>
     </div>
+
     <div class="rubro-item">
-      <div class="rubro-icon">☕</div>
+      <div class="rubro-icon">
+        <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+      </div>
       <div class="rubro-name">Cafeterías</div>
     </div>
+
     <div class="rubro-item">
-      <div class="rubro-icon">🍕</div>
+      <div class="rubro-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+      </div>
       <div class="rubro-name">Pizzerías</div>
     </div>
+
     <div class="rubro-item">
-      <div class="rubro-icon">🚚</div>
+      <div class="rubro-icon">
+        <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      </div>
       <div class="rubro-name">Distribuidores</div>
     </div>
+
   </div>
 </section>
 
