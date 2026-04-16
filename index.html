@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cook & Chill — Ultracongelados · Natural Chef</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #1a9e8f;
+    --verde-dark: #147a6e;
+    --verde-light: #e8f7f5;
+    --negro: #111111;
+    --blanco: #ffffff;
+    --gris: #f5f5f3;
+    --gris-medio: #888;
+    --texto: #222;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Raleway', sans-serif;
+    color: var(--texto);
+    background: var(--blanco);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    height: 70px;
+    background: rgba(255,255,255,0.97);
+    box-shadow: 0 1px 20px rgba(0,0,0,0.08);
+  }
+
+  .nav-logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+    text-decoration: none;
+  }
+  .nav-logo .brand { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 900; color: var(--negro); }
+  .nav-logo .sub { font-family: 'Raleway', sans-serif; font-size: 0.62rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--verde); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--negro);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--verde); }
+
+  .nav-cta {
+    background: var(--verde);
+    color: var(--blanco) !important;
+    padding: 0.5rem 1.3rem;
+    border-radius: 50px;
+    font-weight: 600 !important;
+    transition: background .2s !important;
+  }
+  .nav-cta:hover { background: var(--verde-dark) !important; color: var(--blanco) !important; }
+
+  /* ─── HERO ─── */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1600&q=80');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.45);
+    transform: scale(1.05);
+    animation: heroZoom 8s ease-out forwards;
+  }
+
+  @keyframes heroZoom {
+    from { transform: scale(1.05); }
+    to   { transform: scale(1.0); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 5%;
+    max-width: 820px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--verde);
+    background: rgba(26,158,143,0.15);
+    border: 1px solid rgba(26,158,143,0.4);
+    padding: 0.35rem 1rem;
+    border-radius: 50px;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 900;
+    color: var(--blanco);
+    line-height: 1.05;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--verde);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.35rem);
+    font-weight: 300;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.8rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.7s forwards;
+  }
+
+  .hero-desc {
+    font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+    font-weight: 300;
+    color: rgba(255,255,255,0.75);
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.9s forwards;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 1.1s forwards;
+  }
+
+  .btn-primary {
+    background: var(--verde);
+    color: var(--blanco);
+    padding: 0.85rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: background .25s, transform .2s;
+    border: 2px solid var(--verde);
+  }
+  .btn-primary:hover { background: var(--verde-dark); border-color: var(--verde-dark); transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--blanco);
+    padding: 0.85rem 2rem;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    border: 2px solid rgba(255,255,255,0.5);
+    transition: border-color .25s, color .25s, transform .2s;
+  }
+  .btn-outline:hover { border-color: var(--blanco); transform: translateY(-2px); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 1.5s forwards;
+  }
+  .hero-scroll span { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent); animation: scrollLine 1.5s ease-in-out infinite; }
+  @keyframes scrollLine { 0%,100%{opacity:1;transform:scaleY(1)} 50%{opacity:.3;transform:scaleY(0.5)} }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SECCIÓN GENÉRICA ─── */
+  section { padding: 5rem 5%; }
+  .section-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--verde);
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--negro);
+    margin-bottom: 1rem;
+  }
+  .section-title em { font-style: italic; color: var(--verde); }
+  .section-desc {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--gris-medio);
+    line-height: 1.75;
+    max-width: 600px;
+  }
+
+  /* ─── CATÁLOGO FLIP CARDS ─── */
+  #catalogo {
+    background: var(--gris);
+    text-align: center;
+  }
+
+  #catalogo .section-title { margin-left: auto; margin-right: auto; }
+  #catalogo .section-desc { margin: 0 auto 3.5rem; }
+
+  .flip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .flip-card {
+    height: 320px;
+    perspective: 1200px;
+    cursor: pointer;
+  }
+
+  .flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.65s cubic-bezier(.4,0,.2,1);
+    transform-style: preserve-3d;
+  }
+
+  .flip-card:hover .flip-inner,
+  .flip-card.flipped .flip-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flip-front, .flip-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overflow: hidden;
+  }
+
+  .flip-front {
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .flip-front::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
+  }
+
+  .flip-front-content {
+    position: relative;
+    z-index: 1;
+    padding: 1.5rem;
+    text-align: left;
+  }
+
+  .flip-cat-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .flip-cat-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--blanco);
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+  }
+
+  .flip-hint {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .flip-back {
+    background: var(--verde);
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.8rem;
+    text-align: left;
+  }
+
+  .flip-back-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--blanco);
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+  }
+
+  .flip-back ul {
+    list-style: none;
+    margin-bottom: 1rem;
+  }
+
+  .flip-back ul li {
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: rgba(255,255,255,0.9);
+    padding: 0.25rem 0;
+    padding-left: 1rem;
+    position: relative;
+    line-height: 1.4;
+  }
+
+  .flip-back ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.75rem;
+  }
+
+  .flip-platos {
+    font-size: 0.72rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.5;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 0.75rem;
+    margin-top: auto;
+  }
+
+  /* ─── BANNER VIDEO ─── */
+  #banner-video {
+    position: relative;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .video-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1607631568010-a87245c0daf8?w=1600&q=80');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.35);
+  }
+
+  .video-content {
+    position: relative;
+    z-index: 2;
+    padding: 5rem 8%;
+    max-width: 700px;
+  }
+
+  .video-content .section-label { color: rgba(26,158,143,0.9); }
+
+  .video-content .section-title {
+    color: var(--blanco);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 1rem;
+  }
+
+  .video-content .section-title em { color: var(--verde); }
+
+  .video-content p {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.75;
+    margin-bottom: 2rem;
+    max-width: 500px;
+  }
+
+  /* ─── BENEFICIOS ─── */
+  #beneficios {
+    background: var(--blanco);
+  }
+
+  .beneficios-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .beneficios-img {
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+  }
+
+  .beneficios-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  .beneficios-img:hover img { transform: scale(1.04); }
+
+  .beneficios-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .beneficio-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1.25rem;
+    border-radius: 10px;
+    transition: background .2s;
+  }
+
+  .beneficio-item:hover { background: var(--verde-light); }
+
+  .bene-icon {
+    width: 42px;
+    height: 42px;
+    background: var(--verde-light);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    transition: background .2s;
+  }
+
+  .beneficio-item:hover .bene-icon { background: rgba(26,158,143,0.25); }
+
+  .bene-text strong {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--negro);
+    margin-bottom: 0.2rem;
+  }
+
+  .bene-text span {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--gris-medio);
+    line-height: 1.5;
+  }
+
+  /* ─── RUBROS ─── */
+  #rubros {
+    background: var(--verde);
+    text-align: center;
+  }
+
+  #rubros .section-label { color: rgba(255,255,255,0.6); }
+  #rubros .section-title { color: var(--blanco); margin: 0 auto 0.75rem; }
+  #rubros .section-desc { color: rgba(255,255,255,0.75); margin: 0 auto 3.5rem; }
+
+  .rubros-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .rubro-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.75rem 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: background .2s, border-color .2s, transform .2s;
+    cursor: default;
+  }
+
+  .rubro-item:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.4);
+    transform: translateY(-3px);
+  }
+
+  .rubro-icon {
+    font-size: 2rem;
+    opacity: 0.9;
+  }
+
+  .rubro-name {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--blanco);
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  /* ─── CTA FINAL ─── */
+  #contacto {
+    background: var(--negro);
+    text-align: center;
+    padding: 6rem 5%;
+  }
+
+  #contacto .section-label { color: rgba(26,158,143,0.8); }
+  #contacto .section-title { color: var(--blanco); margin: 0 auto 0.75rem; }
+  #contacto .section-desc { color: rgba(255,255,255,0.55); margin: 0 auto 2.5rem; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #0a0a0a;
+    padding: 3rem 5%;
+    border-top: 1px solid #1a1a1a;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .footer-brand .brand { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 900; color: var(--blanco); }
+  .footer-brand .sub { font-size: 0.6rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--verde); margin-top: 0.2rem; }
+  .footer-brand p { font-size: 0.8rem; font-weight: 300; color: #555; margin-top: 0.75rem; max-width: 220px; line-height: 1.6; }
+
+  .footer-col h4 { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #444; margin-bottom: 1rem; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.5rem; }
+  .footer-col ul li a { font-size: 0.82rem; font-weight: 300; color: #666; text-decoration: none; transition: color .2s; }
+  .footer-col ul li a:hover { color: var(--verde); }
+
+  .footer-bottom {
+    background: #0a0a0a;
+    padding: 1.25rem 5%;
+    border-top: 1px solid #1a1a1a;
+    text-align: center;
+  }
+  .footer-bottom p { font-size: 0.75rem; font-weight: 300; color: #333; }
+
+  /* ─── WA FLOAT ─── */
+  .wa-float {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 54px;
+    height: 54px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    z-index: 999;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .wa-float:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.55); }
+  .wa-float svg { width: 28px; height: 28px; fill: white; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .beneficios-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .beneficios-img { order: -1; }
+    footer { flex-direction: column; }
+    .flip-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+    .rubros-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 480px) {
+    .rubros-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero-btns { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span class="brand">Cook & Chill</span>
+    <span class="sub">Ultracongelados · Natural Chef</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#catalogo">Productos</a></li>
+    <li><a href="#beneficios">Beneficios</a></li>
+    <li><a href="#rubros">Rubros</a></li>
+    <li><a href="#contacto" class="nav-cta">Solicitar catálogo</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-badge">Natural Chef · Alta Gracia, Córdoba</span>
+    <h1 class="hero-title">Cook &amp; Chill<br><em>Ultracongelados</em></h1>
+    <p class="hero-subtitle">Soluciones gastronómicas para cocinas profesionales</p>
+    <p class="hero-desc">Preparaciones cocidas, ultracongeladas y listas para regenerar. Más eficiencia, menos merma, sin resignar sabor ni calidad.</p>
+    <div class="hero-btns">
+      <a href="#contacto" class="btn-primary">Solicitar catálogo →</a>
+      <a href="#catalogo" class="btn-outline">Ver productos</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- CATÁLOGO FLIP -->
+<section id="catalogo">
+  <div class="section-label">Catálogo de productos</div>
+  <h2 class="section-title">Combinaciones únicas,<br><em>listas para servir</em></h2>
+  <p class="section-desc">Seleccioná una categoría para conocer los productos. Todos cocidos, ultracongelados y listos para regenerar en el momento del servicio.</p>
+
+  <div class="flip-grid">
+
+    <!-- 1. Proteínas Cocidas -->
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-front" style="background-image: url('https://images.unsplash.com/photo-1546069901-d5bfd2cbfb1f?w=600&q=80')">
+          <div class="flip-front-content">
+            <span class="flip-cat-icon">🥩</span>
+            <div class="flip-cat-name">Proteínas Cocidas</div>
+            <div class="flip-hint">Ver cortes →</div>
+          </div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-title">Proteínas Cocidas</div>
+          <ul>
+            <li>Pechuga grillada / en juliana</li>
+            <li>Pata muslo asada</li>
+            <li>Bondiola braseada</li>
+            <li>Solomillo asado</li>
+            <li>Ribs ahumadas BBQ</li>
+            <li>Entrecot asado</li>
+            <li>Lomo grillado</li>
+            <li>Albóndigas en salsa</li>
+            <li>Salmón / trucha al limón</li>
+          </ul>
+          <div class="flip-platos">Platos: suprema a la mostaza · ternera demiglacé · cerdo BBQ</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Guarniciones -->
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-front" style="background-image: url('https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=600&q=80')">
+          <div class="flip-front-content">
+            <span class="flip-cat-icon">🥔</span>
+            <div class="flip-cat-name">Guarniciones</div>
+            <div class="flip-hint">Ver variedades →</div>
+          </div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-title">Guarniciones</div>
+          <ul>
+            <li>Puré de papas / calabaza / boniato</li>
+            <li>Papas al horno / a la crema</li>
+            <li>Milhojas de papas</li>
+            <li>Arroz blanco / risotto</li>
+            <li>Legumbres cocidas</li>
+            <li>Verduras grilladas</li>
+            <li>Verduras al vapor</li>
+          </ul>
+          <div class="flip-platos">Platos: milanesa con puré · cerdo demiglacé · bowls completos</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Pastas -->
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-front" style="background-image: url('https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?w=600&q=80')">
+          <div class="flip-front-content">
+            <span class="flip-cat-icon">🍝</span>
+            <div class="flip-cat-name">Pastas & Salsas</div>
+            <div class="flip-hint">Ver línea completa →</div>
+          </div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-title">Pastas & Salsas</div>
+          <ul>
+            <li>Tallarines · fettuccine</li>
+            <li>Sorrentinos · ravioles · panzottis</li>
+            <li>Fileto · bolognesa · bechamel</li>
+            <li>Crema de verdeo</li>
+            <li>Demi-glace · de hongos</li>
+            <li>Cuatro quesos · pesto de nuez</li>
+            <li>Frutos de mar</li>
+          </ul>
+          <div class="flip-platos">Platos: ravioles al pesto · tallarines bolognesa · sorrentinos 4 quesos</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Platos Combinados -->
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-front" style="background-image: url('https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600&q=80')">
+          <div class="flip-front-content">
+            <span class="flip-cat-icon">🍽️</span>
+            <div class="flip-cat-name">Platos Combinados</div>
+            <div class="flip-hint">Ver preparaciones →</div>
+          </div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-title">Platos Combinados</div>
+          <ul>
+            <li>Pastel de papa</li>
+            <li>Lasagna</li>
+            <li>Canelones</li>
+          </ul>
+          <div class="flip-platos">Preparaciones completas, porciones listas para regenerar y servir directamente.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Sopas & Cremas -->
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-front" style="background-image: url('https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80')">
+          <div class="flip-front-content">
+            <span class="flip-cat-icon">🍲</span>
+            <div class="flip-cat-name">Sopas & Cremas</div>
+            <div class="flip-hint">Ver variedades →</div>
+          </div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-title">Sopas & Cremas</div>
+          <ul>
+            <li>Crema de calabaza</li>
+            <li>Crema de choclo</li>
+            <li>Crema de arvejas</li>
+            <li>Sopa minestrone</li>
+          </ul>
+          <div class="flip-platos">Ideales para menús institucionales, servicio de temporada y propuestas de entrada.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Cazuelas & Estofados -->
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-front" style="background-image: url('https://images.unsplash.com/photo-1606851091851-e8c8d3e0f4a8?w=600&q=80')">
+          <div class="flip-front-content">
+            <span class="flip-cat-icon">🫕</span>
+            <div class="flip-cat-name">Cazuelas & Estofados</div>
+            <div class="flip-hint">Ver variedades →</div>
+          </div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-title">Cazuelas & Estofados</div>
+          <ul>
+            <li>Cazuela de lentejas</li>
+            <li>Arroz a la valenciana</li>
+            <li>Cazuela de vegetales</li>
+            <li>Humita</li>
+          </ul>
+          <div class="flip-platos">Sabor casero, producción industrial. Perfectos para menús rotativos y alta demanda.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Bases de Producción -->
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-front" style="background-image: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=600&q=80')">
+          <div class="flip-front-content">
+            <span class="flip-cat-icon">👨‍🍳</span>
+            <div class="flip-cat-name">Bases de Producción</div>
+            <div class="flip-hint">Ver insumos →</div>
+          </div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-title">Bases de Producción</div>
+          <ul>
+            <li>Pollo salteado solo / con vegetales</li>
+            <li>Ternera desmenuzada</li>
+            <li>Pata muslo asada</li>
+            <li>Rellenos de carne o pollo</li>
+            <li>Rellenos de verduras / choclo</li>
+            <li>Relleno carne estilo criolla</li>
+            <li>Vegetales grillados en juliana</li>
+          </ul>
+          <div class="flip-platos">Insumos listos para armar empanadas, tartas, rolls y preparaciones propias.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BANNER VIDEO -->
+<section id="banner-video">
+  <div class="video-bg"></div>
+  <div class="video-content">
+    <div class="section-label">Sistema Cook & Chill</div>
+    <h2 class="section-title">Potenciá tu negocio<br>con <em>Cook & Chill</em></h2>
+    <p>Cocinamos, enfriamos rápido y ultracongelamos con control total de cada etapa. Vos regenerás y servís como recién hecho, sin depender de personal especializado en cada turno.</p>
+    <a href="#contacto" class="btn-primary">Hablar con un asesor →</a>
+  </div>
+</section>
+
+<!-- BENEFICIOS -->
+<section id="beneficios">
+  <div class="beneficios-layout">
+    <div class="beneficios-img">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80" alt="Cocina profesional Natural Chef" loading="lazy">
+    </div>
+    <div>
+      <div class="section-label">Por qué elegirnos</div>
+      <h2 class="section-title">Beneficios para<br><em>tu cocina</em></h2>
+      <div class="beneficios-list" style="margin-top: 2rem;">
+        <div class="beneficio-item">
+          <div class="bene-icon">💰</div>
+          <div class="bene-text">
+            <strong>Reducción de costos operativos</strong>
+            <span>Menos personal y equipamiento en cocina. Producción programada y predecible.</span>
+          </div>
+        </div>
+        <div class="beneficio-item">
+          <div class="bene-icon">✅</div>
+          <div class="bene-text">
+            <strong>Calidad estandarizada</strong>
+            <span>Cada porción igual a la anterior. Sabor y presentación consistentes en todo servicio.</span>
+          </div>
+        </div>
+        <div class="beneficio-item">
+          <div class="bene-icon">♻️</div>
+          <div class="bene-text">
+            <strong>Mínima merma</strong>
+            <span>Porciones exactas. Sin desperdicios ni sobrantes. Optimización total de recursos.</span>
+          </div>
+        </div>
+        <div class="beneficio-item">
+          <div class="bene-icon">📈</div>
+          <div class="bene-text">
+            <strong>Escalabilidad real</strong>
+            <span>Crecé tu operación sin multiplicar infraestructura ni depender de más personal especializado.</span>
+          </div>
+        </div>
+        <div class="beneficio-item">
+          <div class="bene-icon">🎨</div>
+          <div class="bene-text">
+            <strong>Versatilidad de carta</strong>
+            <span>Armá decenas de platos distintos combinando nuestras bases, proteínas y guarniciones.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RUBROS -->
+<section id="rubros">
+  <div class="section-label">A quiénes servimos</div>
+  <h2 class="section-title">Soluciones para<br><em>cada rubro</em></h2>
+  <p class="section-desc">Nuestros productos se adaptan a cualquier cocina profesional que busque eficiencia, calidad y consistencia.</p>
+
+  <div class="rubros-grid">
+    <div class="rubro-item">
+      <div class="rubro-icon">🍽️</div>
+      <div class="rubro-name">Restaurantes</div>
+    </div>
+    <div class="rubro-item">
+      <div class="rubro-icon">🏨</div>
+      <div class="rubro-name">Hoteles</div>
+    </div>
+    <div class="rubro-item">
+      <div class="rubro-icon">🏥</div>
+      <div class="rubro-name">Clínicas y hospitales</div>
+    </div>
+    <div class="rubro-item">
+      <div class="rubro-icon">🧓</div>
+      <div class="rubro-name">Geriátricos</div>
+    </div>
+    <div class="rubro-item">
+      <div class="rubro-icon">🎪</div>
+      <div class="rubro-name">Catering social</div>
+    </div>
+    <div class="rubro-item">
+      <div class="rubro-icon">🏢</div>
+      <div class="rubro-name">Catering corporativo</div>
+    </div>
+    <div class="rubro-item">
+      <div class="rubro-icon">☕</div>
+      <div class="rubro-name">Cafeterías</div>
+    </div>
+    <div class="rubro-item">
+      <div class="rubro-icon">🍕</div>
+      <div class="rubro-name">Pizzerías</div>
+    </div>
+    <div class="rubro-item">
+      <div class="rubro-icon">🚚</div>
+      <div class="rubro-name">Distribuidores</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="contacto">
+  <div class="section-label">Empezá hoy</div>
+  <h2 class="section-title" style="color: #fff; margin: 0 auto 0.75rem;">¿Necesitás soluciones<br><em>para tu cocina?</em></h2>
+  <p class="section-desc" style="margin: 0 auto 2.5rem;">Hablá con uno de nuestros asesores. Te enviamos el catálogo completo y armamos una propuesta a medida.</p>
+  <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+    <a href="https://wa.me/5493516000000" class="btn-primary">Hablar por WhatsApp →</a>
+    <a href="mailto:info@naturalchef.com.ar" class="btn-outline" style="color:#fff; border-color: rgba(255,255,255,0.35);">Enviar e-mail</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="brand">Cook & Chill</div>
+    <div class="sub">Ultracongelados · Natural Chef</div>
+    <p>Planta productora de alimentos bajo BPM. Soluciones gastronómicas ultracongeladas para cocinas profesionales en Córdoba.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Productos</h4>
+    <ul>
+      <li><a href="#catalogo">Proteínas Cocidas</a></li>
+      <li><a href="#catalogo">Guarniciones</a></li>
+      <li><a href="#catalogo">Pastas & Salsas</a></li>
+      <li><a href="#catalogo">Platos Combinados</a></li>
+      <li><a href="#catalogo">Sopas & Cremas</a></li>
+      <li><a href="#catalogo">Cazuelas & Estofados</a></li>
+      <li><a href="#catalogo">Bases de Producción</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Natural Chef</h4>
+    <ul>
+      <li><a href="#">Viandas corporativas</a></li>
+      <li><a href="#">Pastas artesanales</a></li>
+      <li><a href="#">Instagram</a></li>
+      <li><a href="https://wa.me/5493516000000">WhatsApp</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Contacto</h4>
+    <ul>
+      <li><a href="#">Alta Gracia, Córdoba</a></li>
+      <li><a href="#">SENASA · RNE · RNPA</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>© 2026 Cook & Chill — Natural Chef · Aterym Alta Gracia &nbsp;·&nbsp; naturalchef.com.ar</p>
+</div>
+
+<!-- WA FLOAT -->
+<a href="https://wa.me/5493516000000" class="wa-float" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+</body>
+</html>
